@@ -21,19 +21,28 @@ const schema = yup.object().shape({
     .required('Age is required'),
   password1: yup
     .string()
-    .min(8, 'Password must be at least 8 characters long')
-    .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
-    .matches(/[a-z]/, 'Password must contain at least one lowercase letter')
-    .matches(/[0-9]/, 'Password must contain at least one number')
+    .min(8, 'Weak password: password must be at least 8 characters long')
+    .matches(
+      /[A-Z]/,
+      'Weak password: password must contain at least one uppercase letter',
+    )
+    .matches(
+      /[a-z]/,
+      'Weak password: password must contain at least one lowercase letter',
+    )
+    .matches(
+      /[0-9]/,
+      'Weak password: password must contain at least one number',
+    )
     .matches(
       /[@$!%*?&#]/,
-      'Password must contain at least one special character',
+      'Weak password: password must contain at least one special character @$!%*?&#',
     )
     .required('Password is required'),
   password2: yup
     .string()
     .oneOf([yup.ref('password1')], 'Passwords must match')
-    .required('Confirm your password'),
+    .required('Repeat your password'),
   gender: yup.string().required('Gender is required'),
   terms: yup
     .boolean()
