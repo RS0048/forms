@@ -7,6 +7,7 @@ interface FormState {
   password1: string;
   password2: string;
   gender: string;
+  country: string;
   terms: boolean;
 }
 
@@ -17,6 +18,7 @@ const initialState: FormState = {
   password1: '',
   password2: '',
   gender: '',
+  country: '',
   terms: false,
 };
 

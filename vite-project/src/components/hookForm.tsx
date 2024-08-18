@@ -2,9 +2,10 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setFormData } from '../store/formSlice';
 import { useNavigate } from 'react-router-dom';
+import { RootState } from '../store/store';
 
 const schema = yup.object().shape({
   name: yup
@@ -46,6 +47,7 @@ const schema = yup.object().shape({
     .oneOf([yup.ref('password1')], 'Passwords must match')
     .required('Repeat your password'),
   gender: yup.string().required('Gender is required'),
+  country: yup.string().required('Country is required'),
   terms: yup
     .boolean()
     .oneOf([true], 'You must accept the Terms and Conditions')
@@ -59,6 +61,7 @@ interface IFormInput {
   password1: string;
   password2: string;
   gender: string;
+  country: string;
   terms: boolean;
 }
 
@@ -73,6 +76,8 @@ const HookForm: React.FC = () => {
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
+
+  const countries = useSelector((state: RootState) => state.country.countries);
 
   const onSubmit = (data: IFormInput) => {
     dispatch(setFormData(data));
@@ -127,6 +132,22 @@ const HookForm: React.FC = () => {
           {errors.gender && (
             <p className="formMessageError">{errors.gender.message}</p>
           )}
+        </div>
+        <div className="formComponent">
+          <label htmlFor="country">Country</label>
+          <input
+            id="country"
+            list="countrySuggestions"
+            {...register('country')}
+          />
+          {errors.country && (
+            <p className="formMessageError">{errors.country?.message}</p>
+          )}
+          <datalist id="countrySuggestions">
+            {countries.map((country, index) => (
+              <option key={index} value={country} />
+            ))}
+          </datalist>
         </div>
         <div className="formComponent">
           <label htmlFor="checkbox">

@@ -1,8 +1,9 @@
 import React, { useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setFormData } from '../store/formSlice';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
+import { RootState } from '../store/store';
 
 const schema = yup.object().shape({
   name: yup
@@ -44,6 +45,7 @@ const schema = yup.object().shape({
     .oneOf([yup.ref('password1')], 'Passwords must match')
     .required('Repeat your password'),
   gender: yup.string().required('Gender is required'),
+  country: yup.string().required('Country is required'),
   terms: yup
     .boolean()
     .oneOf([true], 'You must accept the Terms and Conditions')
@@ -61,6 +63,9 @@ const UncontrolledCompForm: React.FC = () => {
   const password2Ref = useRef<HTMLInputElement>(null);
   const genderRef = useRef<HTMLSelectElement>(null);
   const termsRef = useRef<HTMLInputElement>(null);
+  const countryRef = useRef<HTMLInputElement>(null);
+
+  const countries = useSelector((state: RootState) => state.country.countries);
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
@@ -72,6 +77,7 @@ const UncontrolledCompForm: React.FC = () => {
       password1: password1Ref.current?.value ?? '',
       password2: password2Ref.current?.value ?? '',
       gender: genderRef.current?.value ?? '',
+      country: countryRef.current?.value ?? '',
       terms: termsRef.current?.checked ?? false,
     };
 
@@ -148,6 +154,23 @@ const UncontrolledCompForm: React.FC = () => {
             <option value="female">Female</option>
           </select>
           {errors.gender && <p className="formMessageError">{errors.gender}</p>}
+        </div>
+        <div className="formComponent">
+          <label htmlFor="country">Country</label>
+          <input
+            id="country"
+            ref={countryRef}
+            list="countrySuggestions"
+            type="text"
+          />
+          {errors.country && (
+            <p className="formMessageError">{errors.country}</p>
+          )}
+          <datalist id="countrySuggestions">
+            {countries.map((country, index) => (
+              <option key={index} value={country} />
+            ))}
+          </datalist>
         </div>
         <div className="formComponent">
           <label htmlFor="checkbox">

@@ -24,6 +24,9 @@ const Main: React.FC = () => {
           <strong>Gender:</strong> {formData.gender}
         </p>
         <p>
+          <strong>Country:</strong> {formData.country}
+        </p>
+        <p>
           <strong>Terms Accepted:</strong> {formData.terms ? 'Yes' : 'No'}
         </p>
       </div>
