@@ -112,37 +112,37 @@ const UncontrolledCompForm: React.FC = () => {
     <div className="hookForm">
       <form onSubmit={onSubmit}>
         <div className="formComponent">
-          <label>Name</label>
-          <input ref={nameRef} type="text" />
+          <label htmlFor="name">Name</label>
+          <input id="name" ref={nameRef} type="text" />
           {errors.name && <p className="formMessageError">{errors.name}</p>}
         </div>
         <div className="formComponent">
-          <label>Email</label>
-          <input ref={emailRef} type="email" />
+          <label htmlFor="email">Email</label>
+          <input id="email" ref={emailRef} type="email" />
           {errors.email && <p className="formMessageError">{errors.email}</p>}
         </div>
         <div className="formComponent">
-          <label>Age</label>
-          <input ref={ageRef} type="number" />
+          <label htmlFor="age">Age</label>
+          <input id="age" ref={ageRef} type="number" />
           {errors.age && <p className="formMessageError">{errors.age}</p>}
         </div>
         <div className="formComponent">
-          <label>Password</label>
-          <input ref={password1Ref} type="password" />
+          <label htmlFor="password1">Password</label>
+          <input id="password1" ref={password1Ref} type="password" />
           {errors.password1 && (
             <p className="formMessageError">{errors.password1}</p>
           )}
         </div>
         <div className="formComponent">
-          <label>Confirm Password</label>
-          <input ref={password2Ref} type="password" />
+          <label htmlFor="password2">Repeat Password</label>
+          <input id="password2" ref={password2Ref} type="password" />
           {errors.password2 && (
             <p className="formMessageError">{errors.password2}</p>
           )}
         </div>
         <div className="formComponent">
-          <label>Gender</label>
-          <select ref={genderRef}>
+          <label htmlFor="gender">Gender</label>
+          <select id="gender" ref={genderRef}>
             <option value="">Select</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
@@ -150,8 +150,9 @@ const UncontrolledCompForm: React.FC = () => {
           {errors.gender && <p className="formMessageError">{errors.gender}</p>}
         </div>
         <div className="formComponent">
-          <label>
-            <input ref={termsRef} type="checkbox" /> Accept Terms and Conditions
+          <label htmlFor="checkbox">
+            <input id="checkbox" ref={termsRef} type="checkbox" /> Accept Terms
+            and Conditions
           </label>
           {errors.terms && <p className="formMessageError">{errors.terms}</p>}
         </div>

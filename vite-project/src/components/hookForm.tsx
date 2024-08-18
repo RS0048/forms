@@ -83,15 +83,15 @@ const HookForm: React.FC = () => {
     <div className="hookForm">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="formComponent">
-          <label>Name</label>
-          <input {...register('name')} />
+          <label htmlFor="name">Name</label>
+          <input id="name" {...register('name')} />
           {errors.name && (
             <p className="formMessageError">{errors.name.message}</p>
           )}
         </div>
         <div className="formComponent">
-          <label>Email</label>
-          <input type="email" {...register('email')} />
+          <label htmlFor="email">Email</label>
+          <input id="email" type="email" {...register('email')} />
           {errors.email && (
             <p className="formMessageError">{errors.email.message}</p>
           )}
@@ -104,15 +104,15 @@ const HookForm: React.FC = () => {
           )}
         </div>
         <div className="formComponent">
-          <label>Password</label>
-          <input type="password" {...register('password1')} />
+          <label htmlFor="password1">Password</label>
+          <input id="password1" type="password" {...register('password1')} />
           {errors.password1 && (
             <p className="formMessageError">{errors.password1.message}</p>
           )}
         </div>
         <div className="formComponent">
-          <label>Confirm Password</label>
-          <input type="password" {...register('password2')} />
+          <label htmlFor="password2">Repeat Password</label>
+          <input id="password2" type="password" {...register('password2')} />
           {errors.password2 && (
             <p className="formMessageError">{errors.password2.message}</p>
           )}
@@ -129,9 +129,9 @@ const HookForm: React.FC = () => {
           )}
         </div>
         <div className="formComponent">
-          <label>
-            <input type="checkbox" {...register('terms')} /> Accept Terms and
-            Conditions
+          <label htmlFor="checkbox">
+            <input id="checkbox" type="checkbox" {...register('terms')} />{' '}
+            Accept Terms and Conditions
           </label>
           {errors.terms && (
             <p className="formMessageError">{errors.terms.message}</p>
