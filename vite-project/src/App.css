@@ -25,3 +25,9 @@ label {
   font-weight: 600;
   font-size: 12px;
 }
+
+.buttonHookForm:disabled {
+  background-color: rgb(233, 162, 233);
+  color: rgb(95, 94, 94);
+  cursor: auto;
+}

@@ -4,6 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { setFormData } from '../store/formSlice';
+import { useNavigate } from 'react-router-dom';
 
 const schema = yup.object().shape({
   name: yup
@@ -36,6 +37,10 @@ const schema = yup.object().shape({
     .oneOf([yup.ref('password1')], 'Passwords must match')
     .required('Confirm your password'),
   gender: yup.string().required('Gender is required'),
+  terms: yup
+    .boolean()
+    .oneOf([true], 'You must accept the Terms and Conditions')
+    .required('You must accept the Terms and Conditions'),
 });
 
 interface IFormInput {
@@ -45,20 +50,24 @@ interface IFormInput {
   password1: string;
   password2: string;
   gender: string;
+  terms: boolean;
 }
 
-const MyForm: React.FC = () => {
+const HookForm: React.FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid, dirtyFields },
   } = useForm<IFormInput>({
     resolver: yupResolver(schema),
+    mode: 'onChange',
   });
 
   const onSubmit = (data: IFormInput) => {
     dispatch(setFormData(data));
+    navigate('/');
   };
 
   return (
@@ -79,8 +88,8 @@ const MyForm: React.FC = () => {
           )}
         </div>
         <div className="formComponent">
-          <label>Age</label>
-          <input type="number" {...register('age')} />
+          <label htmlFor="age">Age</label>
+          <input id="age" type="number" {...register('age')} />
           {errors.age && (
             <p className="formMessageError">{errors.age.message}</p>
           )}
@@ -110,10 +119,25 @@ const MyForm: React.FC = () => {
             <p className="formMessageError">{errors.gender.message}</p>
           )}
         </div>
-        <button type="submit">Submit</button>
+        <div className="formComponent">
+          <label>
+            <input type="checkbox" {...register('terms')} /> Accept Terms and
+            Conditions
+          </label>
+          {errors.terms && (
+            <p className="formMessageError">{errors.terms.message}</p>
+          )}
+        </div>
+        <button
+          className="buttonHookForm"
+          type="submit"
+          disabled={!isValid || Object.keys(dirtyFields).length === 0}
+        >
+          Submit
+        </button>
       </form>
     </div>
   );
 };
 
-export default MyForm;
+export default HookForm;
