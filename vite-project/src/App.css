@@ -1,0 +1,33 @@
+.main,
+.hookFormPage,
+.hookForm,
+form {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.formComponent {
+  padding: 3px;
+  margin-bottom: 8px;
+  width: 400px;
+}
+
+label {
+  margin-right: 10px;
+}
+
+.formMessageError {
+  color: rgb(140, 4, 4);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.buttonHookForm:disabled {
+  background-color: rgb(233, 162, 233);
+  color: rgb(95, 94, 94);
+  cursor: auto;
+}
